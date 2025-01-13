@@ -16,6 +16,7 @@ $ pip install pyxel
 
 - [0001_action_game](./0001_action_game)
 - [0002_gamepad_checker](./0002_gamepad_checker)
+- [0003_vj_simple](./0003_vj_simple)
 
 ## How to make pyxapp 
 Execute following command
