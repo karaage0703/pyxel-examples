@@ -18,6 +18,22 @@ $ pip install pyxel
 - [0002_gamepad_checker](./0002_gamepad_checker)
 - [0003_vj_simple](./0003_vj_simple)
 
+### Run at local
+Run http server
+
+```sh
+$ python -m http.server 8000
+```
+
+Set URL at browser
+
+```
+http://localhost:8000/<directory>/
+
+# e.g.
+# http://localhost:8000/0001_action_game/
+```
+
 ## How to make pyxapp 
 Execute following command
 
