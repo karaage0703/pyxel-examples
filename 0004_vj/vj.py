@@ -105,21 +105,14 @@ class DynamicVJ:
         self.color_phase = (self.color_phase + self.speed * 0.02) % 16
 
         # 回転更新
-        self.rotation += (
-            self.get_analog_value("GAMEPAD1_AXIS_LEFTX", [pyxel.KEY_D, pyxel.KEY_A])
-            / 10000.0
-        )
+        self.rotation += self.get_analog_value("GAMEPAD1_AXIS_LEFTX", [pyxel.KEY_D, pyxel.KEY_A]) / 10000.0
 
         # スケール更新
         self.scale = max(
             0.1,
             min(
                 2.0,
-                self.scale
-                + self.get_analog_value(
-                    "GAMEPAD1_AXIS_LEFTY", [pyxel.KEY_S, pyxel.KEY_W]
-                )
-                / 50000.0,
+                self.scale + self.get_analog_value("GAMEPAD1_AXIS_LEFTY", [pyxel.KEY_S, pyxel.KEY_W]) / 50000.0,
             ),
         )
 
@@ -155,11 +148,7 @@ class DynamicVJ:
             0.5,
             min(
                 2.0,
-                self.speed
-                + self.get_analog_value(
-                    "GAMEPAD1_AXIS_RIGHTX", [pyxel.KEY_RIGHT, pyxel.KEY_LEFT]
-                )
-                / 50000.0,
+                self.speed + self.get_analog_value("GAMEPAD1_AXIS_RIGHTX", [pyxel.KEY_RIGHT, pyxel.KEY_LEFT]) / 50000.0,
             ),
         )
 
@@ -168,19 +157,13 @@ class DynamicVJ:
             0.1,
             min(
                 2.0,
-                self.intensity
-                + self.get_analog_value(
-                    "GAMEPAD1_AXIS_RIGHTY", [pyxel.KEY_DOWN, pyxel.KEY_UP]
-                )
-                / 50000.0,
+                self.intensity + self.get_analog_value("GAMEPAD1_AXIS_RIGHTY", [pyxel.KEY_DOWN, pyxel.KEY_UP]) / 50000.0,
             ),
         )
 
         # 複雑さ
         trigger_left = self.get_analog_value("GAMEPAD1_AXIS_TRIGGERLEFT", [pyxel.KEY_Q])
-        trigger_right = self.get_analog_value(
-            "GAMEPAD1_AXIS_TRIGGERRIGHT", [pyxel.KEY_E]
-        )
+        trigger_right = self.get_analog_value("GAMEPAD1_AXIS_TRIGGERRIGHT", [pyxel.KEY_E])
         self.complexity = max(
             0.1,
             min(
@@ -240,9 +223,7 @@ class DynamicVJ:
 
     def is_button_pressed(self, input_name, keyboard_keys):
         """ボタンの押下状態を取得"""
-        return pyxel.btn(getattr(pyxel, input_name)) or any(
-            pyxel.btn(key) for key in keyboard_keys
-        )
+        return pyxel.btn(getattr(pyxel, input_name)) or any(pyxel.btn(key) for key in keyboard_keys)
 
     def draw(self):
         pyxel.cls(0)
@@ -425,14 +406,7 @@ class DynamicVJ:
             points = []
             for i in range(256):
                 px = i
-                py = (
-                    y
-                    + (pyxel.noise(i * 0.05 + self.wave_phase, 0) * 2 - 1)
-                    * 80
-                    * self.scale
-                    * beat_scale
-                    * self.intensity
-                )
+                py = y + (pyxel.noise(i * 0.05 + self.wave_phase, 0) * 2 - 1) * 80 * self.scale * beat_scale * self.intensity
                 points.append((px, py))
 
             for i in range(len(points) - 1):
@@ -489,9 +463,7 @@ class DynamicVJ:
             for i in range(num_vertices):
                 for j in range(i + 1, num_vertices):
                     color = (int(self.color_phase) + (i + j)) % 16
-                    pyxel.line(
-                        points[i][0], points[i][1], points[j][0], points[j][1], color
-                    )
+                    pyxel.line(points[i][0], points[i][1], points[j][0], points[j][1], color)
 
         else:
             # モアレ

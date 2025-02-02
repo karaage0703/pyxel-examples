@@ -60,44 +60,25 @@ class VJSimple:
             pyxel.quit()
 
         # 左スティックX: 回転
-        self.rotation += (
-            self.get_analog_value("GAMEPAD1_AXIS_LEFTX", [pyxel.KEY_D, pyxel.KEY_A])
-            / 10000.0
-        )
+        self.rotation += self.get_analog_value("GAMEPAD1_AXIS_LEFTX", [pyxel.KEY_D, pyxel.KEY_A]) / 10000.0
 
         # 左スティックY: スケール
         self.scale = max(
             0.1,
             min(
                 2.0,
-                self.scale
-                + self.get_analog_value(
-                    "GAMEPAD1_AXIS_LEFTY", [pyxel.KEY_S, pyxel.KEY_W]
-                )
-                / 50000.0,
+                self.scale + self.get_analog_value("GAMEPAD1_AXIS_LEFTY", [pyxel.KEY_S, pyxel.KEY_W]) / 50000.0,
             ),
         )
 
         # 右スティックX: 色
         self.color = (
-            self.color
-            + int(
-                self.get_analog_value(
-                    "GAMEPAD1_AXIS_RIGHTX", [pyxel.KEY_RIGHT, pyxel.KEY_LEFT]
-                )
-                / 10000.0
-            )
+            self.color + int(self.get_analog_value("GAMEPAD1_AXIS_RIGHTX", [pyxel.KEY_RIGHT, pyxel.KEY_LEFT]) / 10000.0)
         ) % 16
 
         # 右スティックY: パターン
         self.pattern_type = (
-            self.pattern_type
-            + int(
-                self.get_analog_value(
-                    "GAMEPAD1_AXIS_RIGHTY", [pyxel.KEY_DOWN, pyxel.KEY_UP]
-                )
-                / 10000.0
-            )
+            self.pattern_type + int(self.get_analog_value("GAMEPAD1_AXIS_RIGHTY", [pyxel.KEY_DOWN, pyxel.KEY_UP]) / 10000.0)
         ) % 4
 
         # ボタン入力の処理
@@ -128,9 +109,7 @@ class VJSimple:
 
     def is_button_pressed(self, input_name, keyboard_keys):
         """ボタンの押下状態を取得"""
-        return pyxel.btn(getattr(pyxel, input_name)) or any(
-            pyxel.btn(key) for key in keyboard_keys
-        )
+        return pyxel.btn(getattr(pyxel, input_name)) or any(pyxel.btn(key) for key in keyboard_keys)
 
     def draw(self):
         pyxel.cls(0)
@@ -145,24 +124,16 @@ class VJSimple:
         # パターンの描画
         if self.pattern_type == 0:
             # 回転する星
-            self.draw_star(
-                center_x, center_y, self.rotation, self.scale * beat_scale, self.color
-            )
+            self.draw_star(center_x, center_y, self.rotation, self.scale * beat_scale, self.color)
         elif self.pattern_type == 1:
             # 同心円
-            self.draw_circles(
-                center_x, center_y, self.rotation, self.scale * beat_scale, self.color
-            )
+            self.draw_circles(center_x, center_y, self.rotation, self.scale * beat_scale, self.color)
         elif self.pattern_type == 2:
             # スパイラル
-            self.draw_spiral(
-                center_x, center_y, self.rotation, self.scale * beat_scale, self.color
-            )
+            self.draw_spiral(center_x, center_y, self.rotation, self.scale * beat_scale, self.color)
         else:
             # 波紋
-            self.draw_ripple(
-                center_x, center_y, self.rotation, self.scale * beat_scale, self.color
-            )
+            self.draw_ripple(center_x, center_y, self.rotation, self.scale * beat_scale, self.color)
 
     def draw_star(self, x, y, rotation, scale, color):
         """星型のパターンを描画"""

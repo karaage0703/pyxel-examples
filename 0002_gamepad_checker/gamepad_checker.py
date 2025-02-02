@@ -77,9 +77,7 @@ class GamepadChecker:
 
     def is_button_pressed(self, input_name, keyboard_keys):
         """ボタンの押下状態を取得"""
-        return pyxel.btn(getattr(pyxel, input_name)) or any(
-            pyxel.btn(key) for key in keyboard_keys
-        )
+        return pyxel.btn(getattr(pyxel, input_name)) or any(pyxel.btn(key) for key in keyboard_keys)
 
     def draw(self):
         pyxel.cls(0)

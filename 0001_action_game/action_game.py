@@ -123,9 +123,7 @@ class Game:
             )
 
         # Bボタン: ダッシュ
-        if (
-            pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B) or pyxel.btnp(pyxel.KEY_K)
-        ) and self.player.dash_cooldown <= 0:
+        if (pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B) or pyxel.btnp(pyxel.KEY_K)) and self.player.dash_cooldown <= 0:
             self.player.dash_active = True
             self.player.dash_cooldown = 30
 
@@ -133,9 +131,7 @@ class Game:
             self.player.dash_active = False
 
         # Xボタン: シールド
-        self.player.shield_active = pyxel.btn(pyxel.GAMEPAD1_BUTTON_X) or pyxel.btn(
-            pyxel.KEY_U
-        )
+        self.player.shield_active = pyxel.btn(pyxel.GAMEPAD1_BUTTON_X) or pyxel.btn(pyxel.KEY_U)
 
         # Yボタン: パワーモード
         if pyxel.btnp(pyxel.GAMEPAD1_BUTTON_Y) or pyxel.btnp(pyxel.KEY_I):
@@ -143,9 +139,7 @@ class Game:
             self.player.power_timer = 60
 
         # トリガー: エネルギーボール
-        if pyxel.btnv(pyxel.GAMEPAD1_AXIS_TRIGGERRIGHT) > 10000 or pyxel.btn(
-            pyxel.KEY_E
-        ):
+        if pyxel.btnv(pyxel.GAMEPAD1_AXIS_TRIGGERRIGHT) > 10000 or pyxel.btn(pyxel.KEY_E):
             self.player.energy_balls.append(
                 {
                     "x": self.player.x + self.player.size / 2,
@@ -180,12 +174,7 @@ class Game:
         for bullet in self.player.bullets[:]:
             bullet["x"] += math.cos(bullet["angle"]) * bullet["speed"]
             bullet["y"] += math.sin(bullet["angle"]) * bullet["speed"]
-            if (
-                bullet["x"] < 0
-                or bullet["x"] > pyxel.width
-                or bullet["y"] < 0
-                or bullet["y"] > pyxel.height
-            ):
+            if bullet["x"] < 0 or bullet["x"] > pyxel.width or bullet["y"] < 0 or bullet["y"] > pyxel.height:
                 self.player.bullets.remove(bullet)
 
         # エネルギーボールの更新
@@ -210,19 +199,14 @@ class Game:
         # 弾と敵の衝突判定
         for bullet in self.player.bullets[:]:
             for enemy in self.enemies[:]:
-                if (
-                    abs(bullet["x"] - enemy.x) < enemy.size
-                    and abs(bullet["y"] - enemy.y) < enemy.size
-                ):
+                if abs(bullet["x"] - enemy.x) < enemy.size and abs(bullet["y"] - enemy.y) < enemy.size:
                     enemy.health -= 1
                     if bullet in self.player.bullets:
                         self.player.bullets.remove(bullet)
                     if enemy.health <= 0:
                         self.enemies.remove(enemy)
                         self.player.score += 2 if enemy.type == "elite" else 1
-                    self.effects.append(
-                        {"x": enemy.x, "y": enemy.y, "type": "hit", "timer": 5}
-                    )
+                    self.effects.append({"x": enemy.x, "y": enemy.y, "type": "hit", "timer": 5})
                     break
 
         # エネルギーボールと敵の衝突判定
@@ -242,8 +226,7 @@ class Game:
             for enemy in self.enemies:
                 if (
                     abs(self.player.x - enemy.x) < (self.player.size + enemy.size) / 2
-                    and abs(self.player.y - enemy.y)
-                    < (self.player.size + enemy.size) / 2
+                    and abs(self.player.y - enemy.y) < (self.player.size + enemy.size) / 2
                 ):
                     self.player.health -= 10
                     if self.player.health <= 0:
