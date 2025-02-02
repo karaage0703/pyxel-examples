@@ -40,7 +40,7 @@ $ pyxel package 0001_action_game 0001_action_game/action_game.py
 実機のルートパスワードは"plum"です。
 
 ```sh
-sshpass -p "<password>" sftp root@plumOS-RN <<EOF                       10:13:04
+sshpass -p "<password>" sftp root@plumOS-RN <<EOF
 cd /storage/roms/pyxel
 put <pyxel package filepath>
 EOF
@@ -49,7 +49,7 @@ EOF
 以下はコマンドの具体例です。パッケージ名、ファイルパスは適宜変更してください。
 
 ```sh
-sshpass -p "plum" sftp root@plumOS-RN <<EOF                       10:13:04
+sshpass -p "plum" sftp root@plumOS-RN <<EOF
 cd /storage/roms/pyxel
 put 0001_action_game.pyxapp
 EOF
